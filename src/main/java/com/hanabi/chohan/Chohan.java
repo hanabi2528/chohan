@@ -72,6 +72,8 @@ public final class Chohan extends JavaPlugin {
                             Bukkit.getServer().broadcastMessage(ChatColor.RED + name + "が丁に移動しました！");
                             cho += 1;
                             han -= 1;
+                            han_member.remove(name);
+                            cho_member.add(name);
                         } else {
                             Bukkit.getServer().broadcastMessage(ChatColor.RED + name + "が丁に参加しました！");
                             cho += 1;
@@ -110,6 +112,8 @@ public final class Chohan extends JavaPlugin {
                             Bukkit.getServer().broadcastMessage(ChatColor.BLUE + name + "が半に移動しました！");
                             han += 1;
                             cho -= 1;
+                            cho_member.remove(name);
+                            han_member.add(name);
                         } else {
                             Bukkit.getServer().broadcastMessage(ChatColor.BLUE + name + "が半に参加しました！");
                             han += 1;
@@ -140,9 +144,6 @@ public final class Chohan extends JavaPlugin {
                         sender.sendMessage(ChatColor.RED + "ゲームはすでに開催されています");
                         sender.sendMessage(ChatColor.GREEN + "/mc cで丁に、/mc hで半に参加しよう！");
                         return false;
-                    }  else {
-                        sender.sendMessage(ChatColor.RED + "コマンドが間違えています");
-                        sender.sendMessage(ChatColor.GREEN + "/mcでコマンドを確認しよう！");
                     }
 
                     if (!game) {
