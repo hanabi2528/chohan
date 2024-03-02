@@ -159,12 +159,6 @@ public final class Chohan extends JavaPlugin {
                 }
             }
         }
-        if (command.getName().equalsIgnoreCase("check")) {
-            String C = String.valueOf(cho);
-            String H= String.valueOf(han);
-            String Am = String.valueOf(allmoney);
-            Bukkit.getServer().broadcastMessage("丁の数は"+ C +"半の数は" + H + "合計金額は" + Am + cho_member + han_member);
-        }
         return false;
     }
     public void CountDownTimer(String name){
