@@ -2,3 +2,7 @@ name: chohan
 version: '1.0-SNAPSHOT'
 main: com.hanabi.chohan.Chohan
 api-version: '1.20'
+
+commands:
+  mc:
+    description: 丁半を行う
