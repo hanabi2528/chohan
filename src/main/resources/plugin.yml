@@ -1,0 +1,4 @@
+name: chohan
+version: '${project.version}'
+main: com.hanabi.chohan.Chohan
+api-version: '1.20'
