@@ -101,7 +101,7 @@ public final class Chohan extends JavaPlugin {
                          */
                         //仮のプログラム
                         if(han_member.contains(name)){
-                            sender.sendMessage(ChatColor.RED + "あなたはすでに半に参加しています！");
+                            sender.sendMessage(ChatColor.BLUE + "あなたはすでに半に参加しています！");
                             return false;
                         } else if(cho_member.contains(name)) {
                             Bukkit.getServer().broadcastMessage(ChatColor.BLUE + name + "が半に移動しました！");
