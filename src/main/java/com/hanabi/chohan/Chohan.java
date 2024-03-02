@@ -93,6 +93,12 @@ public final class Chohan extends JavaPlugin {
                     }
 
                     if (game){
+                        /* お金の判定
+                        if(所持金 < betmoney){
+                           Sender.sendMessage("所持金が足りないので、参加できません！)
+                           retern false;
+                         }
+                         */
                         //仮のプログラム
                         if(han_member.contains(name)){
                             sender.sendMessage(ChatColor.RED + "あなたはすでに半に参加しています！");
@@ -107,19 +113,7 @@ public final class Chohan extends JavaPlugin {
                             han_member.add(name);
                             return true;
                         }
-                        /* お金の判定
-                        if(所持金 < betmoney){
-                           Sender.sendMessage("所持金が足りないので、参加できません！)
-                           retern false;
-                         }
 
-                         if(所持金 >= betmoney){
-                           Bukkit.getServer().broadcastMessage(name+ "が半に参加しました！" )
-                           han += 1;
-                           all money += betmoney;
-                           所持金 -= betmoney;
-                           return true;
-                         */
                     }
                 }
             }
@@ -157,13 +151,16 @@ public final class Chohan extends JavaPlugin {
                     if (!(!cho_member.isEmpty() && !han_member.isEmpty())) {
                         Bukkit.getServer().broadcastMessage(ChatColor.RED + name + "の丁半の募集は人数不足のため終了しました");
                         end();
+                        this.cancel();
                     }
                     else if (cho_member.size() + han_member.size() == 3){
                         Bukkit.getServer().broadcastMessage(ChatColor.RED + name + "の丁半は賭けが成立しないため終了しました");
                         end();
+                        this.cancel();
                     } else {
                         Game();
                         end();
+                        this.cancel();
                     }
                 }
                 if (time > 0){
