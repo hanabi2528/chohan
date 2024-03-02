@@ -107,11 +107,11 @@ public final class Chohan extends JavaPlugin {
                             sender.sendMessage(ChatColor.RED + "あなたはすでに半に参加しています！");
                             return false;
                         } else if(cho_member.contains(name)) {
-                            Bukkit.getServer().broadcastMessage(ChatColor.RED + name + "が半に移動しました！");
+                            Bukkit.getServer().broadcastMessage(ChatColor.BLUE + name + "が半に移動しました！");
                             han += 1;
                             cho -= 1;
                         } else {
-                            Bukkit.getServer().broadcastMessage(ChatColor.RED + name + "が半に参加しました！");
+                            Bukkit.getServer().broadcastMessage(ChatColor.BLUE + name + "が半に参加しました！");
                             han += 1;
                             allmoney += betmoney;
                             han_member.add(name);
@@ -158,8 +158,11 @@ public final class Chohan extends JavaPlugin {
                 }
             }
         }
-        if (command.getName().equalsIgnoreCase("mc")) {
-            Bukkit.getServer().broadcastMessage( cho + han + betmoney + allmoney + "です" );
+        if (command.getName().equalsIgnoreCase("check")) {
+            String C = String.valueOf(cho);
+            String H= String.valueOf(han);
+            String Am = String.valueOf(allmoney);
+            Bukkit.getServer().broadcastMessage("丁の数は"+ C +"半の数は" + H + "合計金額は" + Am + cho_member + han_member);
         }
         return false;
     }
@@ -175,9 +178,10 @@ public final class Chohan extends JavaPlugin {
                     game = false;
                     betmoney = 0;
                     allmoney = 0;
+                } else {
+                    Bukkit.getServer().broadcastMessage(name + "が" + betmoney + "円丁半を募集しています！");
+                    Bukkit.getServer().broadcastMessage("残り募集時間"+ time + "秒です");
                 }
-                Bukkit.getServer().broadcastMessage(name + "が" + betmoney + "円丁半を募集しています！");
-                Bukkit.getServer().broadcastMessage("残り募集時間"+ time + "秒です");
             }
         }.runTaskTimer(this,0,20*20L);
     }
