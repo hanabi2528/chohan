@@ -188,11 +188,18 @@ public final class Chohan extends JavaPlugin {
                 Bukkit.getServer().broadcastMessage(dice + "が出ました！");
                 if (dice % 2 == 0) {
                     Bukkit.getServer().broadcastMessage("丁の勝ち！");
+                    for (int i = 0; i < cho_member.size(); i++){
+                        Bukkit.getServer().broadcastMessage(cho_member.get(i) + "の勝ち！");
+                    }
                     // 丁のメンバーにお金を増やす
                     end();
                 } else {
                     Bukkit.getServer().broadcastMessage("半の勝ち！");
-                    //半のメンバーにお金を増やす
+                    for (int k = 0; k < han_member.size(); k++) {
+                        Bukkit.getServer().broadcastMessage(han_member.get(k) + "の勝ち！");
+                        //半のメンバーにお金を増やす
+                        end();
+                    }
                 }
             }
         }, 2 * 20);
