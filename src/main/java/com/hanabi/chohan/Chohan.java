@@ -159,7 +159,6 @@ public final class Chohan extends JavaPlugin {
 //                        this.cancel();
 //                    } else {
                         Game();
-                        end();
                         this.cancel();
                     }
 //                }
@@ -171,14 +170,6 @@ public final class Chohan extends JavaPlugin {
         }.runTaskTimer(this,0,20*20L);
     }
 
-   public void end(){
-       game = false;
-       betmoney = 0;
-       allmoney = 0;
-       cho_member.clear();
-       han_member.clear();
-   }
-
     public void Game(){
         Bukkit.getServer().broadcastMessage("さいころを振っています...");
         Bukkit.getScheduler().runTaskLater(this, () -> {
@@ -187,13 +178,21 @@ public final class Chohan extends JavaPlugin {
             if (dice % 2 == 0) {
                 Bukkit.getServer().broadcastMessage("丁の勝ち！");
                 for (String s : cho_member) Bukkit.getServer().broadcastMessage(s + "の勝ち！");
-
+                end();
                 // 丁のメンバーにお金を増やす
             } else {
                 Bukkit.getServer().broadcastMessage("半の勝ち！");
                 for (String s : han_member) Bukkit.getServer().broadcastMessage(s + "の勝ち！");
+                end();
                     //半のメンバーにお金を増やす
             }
         }, 2 * 20);
+    }
+    public void end(){
+        game = false;
+        betmoney = 0;
+        allmoney = 0;
+        cho_member.clear();
+        han_member.clear();
     }
 }
