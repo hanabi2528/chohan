@@ -148,20 +148,20 @@ public final class Chohan extends JavaPlugin {
             public void run() {
                 time -= 20;
                 if (time <= 0) {
-//                    if (!(!cho_member.isEmpty() && !han_member.isEmpty())) {
-//                        Bukkit.getServer().broadcastMessage(ChatColor.RED + name + "の丁半の募集は人数不足のため終了しました");
-//                        end();
-//                        this.cancel();
-//                    }
-//                    else if (cho_member.size() + han_member.size() == 3){
-//                        Bukkit.getServer().broadcastMessage(ChatColor.RED + name + "の丁半は賭けが成立しないため終了しました");
-//                        end();
-//                        this.cancel();
-//                    } else {
+                    if (!(!cho_member.isEmpty() && !han_member.isEmpty())) {
+                        Bukkit.getServer().broadcastMessage(ChatColor.RED + name + "の丁半の募集は人数不足のため終了しました");
+                        end();
+                        this.cancel();
+                    }
+                    else if (cho_member.size() + han_member.size() == 3){
+                        Bukkit.getServer().broadcastMessage(ChatColor.RED + name + "の丁半は賭けが成立しないため終了しました");
+                        end();
+                        this.cancel();
+                    } else {
                         Game();
                         this.cancel();
                     }
-//                }
+                }
                 if (time > 0){
                     Bukkit.getServer().broadcastMessage(name + "が" + betmoney + "円丁半を募集しています！");
                     Bukkit.getServer().broadcastMessage("残り募集時間"+ time + "秒です");
