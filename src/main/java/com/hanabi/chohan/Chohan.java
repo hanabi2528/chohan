@@ -44,7 +44,7 @@ public final class Chohan extends JavaPlugin {
                 sender.sendMessage("==================YbChohan==================");
                 sender.sendMessage("mc create <金額> : 新しい丁半のゲームを作成します");
                 sender.sendMessage("mc c : 開催されているゲームに丁で参加します");
-                sender.sendMessage("mc c : 開催されているゲームに半で参加します");
+                sender.sendMessage("mc h : 開催されているゲームに半で参加します");
                 sender.sendMessage("==================YbChohan==================");
                 return true;
             }
@@ -180,15 +180,21 @@ public final class Chohan extends JavaPlugin {
    }
 
     public void Game(){
-        int dice = (int) ((Math.random()*6 + 1) + (Math.random()*6 + 1));
-        Bukkit.getServer().broadcastMessage(dice + "が出ました！");
-        if(dice % 2 == 0) {
-            Bukkit.getServer().broadcastMessage("丁の勝ち！");
-            // 丁のメンバーにお金を増やす
-            end();
-        } else {
-            Bukkit.getServer().broadcastMessage("半の勝ち！");
-            //半のメンバーにお金を増やす
-        }
+        Bukkit.getServer().broadcastMessage("さいころを振っています...");
+        Bukkit.getScheduler().runTaskLater(this, new Runnable() {
+            @Override
+            public void run() {
+                int dice = (int) ((Math.random()*6 + 1) + (Math.random()*6 + 1));
+                Bukkit.getServer().broadcastMessage(dice + "が出ました！");
+                if (dice % 2 == 0) {
+                    Bukkit.getServer().broadcastMessage("丁の勝ち！");
+                    // 丁のメンバーにお金を増やす
+                    end();
+                } else {
+                    Bukkit.getServer().broadcastMessage("半の勝ち！");
+                    //半のメンバーにお金を増やす
+                }
+            }
+        }, 2 * 20);
     }
 }
