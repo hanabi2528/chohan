@@ -77,7 +77,7 @@ public final class Chohan extends JavaPlugin {
                             han_member.remove(name);
                             cho_member.add(name);
                         } else {
-                            Bukkit.getServer().broadcastMessage(ChatColor.WHITE + name + ChatColor.RED+ "が丁に参加しました！");
+                            Bukkit.getServer().broadcastMessage(ChatColor.YELLOW + name + ChatColor.RED+ "が丁に参加しました！");
                             allmoney += betmoney;
                             cho_member.add(name);
                             return true;
@@ -179,18 +179,18 @@ public final class Chohan extends JavaPlugin {
                 Bukkit.getServer().broadcastMessage("丁の勝ち！");
                 int member = cho_member.size();
                 int getmoney = (allmoney / member);
-                for(String s : cho_member)
-                    Bukkit.getServer().broadcastMessage(ChatColor.YELLOW + s + ChatColor.WHITE + "は" + ChatColor.YELLOW + getmoney + ChatColor.WHITE+"円獲得しました！！");
-                // 丁のメンバーにお金を増やす
+                for (String s : cho_member) {
+                    Bukkit.getServer().broadcastMessage(ChatColor.YELLOW + s + ChatColor.WHITE + "は" + ChatColor.YELLOW + getmoney + ChatColor.WHITE + "円獲得しました！！");
+                }
                 end();
 
             } else {
                 Bukkit.getServer().broadcastMessage("半の勝ち！");
                 int member = han_member.size();
                 int getmoney = (allmoney / member);
-                for(String s : han_member)
-                    Bukkit.getServer().broadcastMessage(ChatColor.YELLOW + s + ChatColor.WHITE + "は" + ChatColor.YELLOW + getmoney + ChatColor.WHITE+"円獲得しました！！");
-                //半のメンバーにお金を増やす
+                for(String s : han_member) {
+                    Bukkit.getServer().broadcastMessage(ChatColor.YELLOW + s + ChatColor.WHITE + "は" + ChatColor.YELLOW + getmoney + ChatColor.WHITE + "円獲得しました！！");
+                }
                 end();
 
             }
