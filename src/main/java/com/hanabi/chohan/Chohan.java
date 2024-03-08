@@ -73,11 +73,11 @@ public final class Chohan extends JavaPlugin {
                             sender.sendMessage(ChatColor.RED + "あなたはすでに丁に参加しています！");
                             return false;
                         } else if(han_member.contains(name)) {
-                            Bukkit.getServer().broadcastMessage(ChatColor.RED + name + "が丁に移動しました！");
+                            Bukkit.getServer().broadcastMessage(ChatColor.YELLOW + name + ChatColor.RED+ "が丁に移動しました！");
                             han_member.remove(name);
                             cho_member.add(name);
                         } else {
-                            Bukkit.getServer().broadcastMessage(ChatColor.RED + name + "が丁に参加しました！");
+                            Bukkit.getServer().broadcastMessage(ChatColor.WHITE + name + ChatColor.RED+ "が丁に参加しました！");
                             allmoney += betmoney;
                             cho_member.add(name);
                             return true;
@@ -104,11 +104,11 @@ public final class Chohan extends JavaPlugin {
                             sender.sendMessage(ChatColor.BLUE + "あなたはすでに半に参加しています！");
                             return false;
                         } else if(cho_member.contains(name)) {
-                            Bukkit.getServer().broadcastMessage(ChatColor.BLUE + name + "が半に移動しました！");
+                            Bukkit.getServer().broadcastMessage(ChatColor.YELLOW + name +ChatColor.BLUE + "が半に移動しました！");
                             cho_member.remove(name);
                             han_member.add(name);
                         } else {
-                            Bukkit.getServer().broadcastMessage(ChatColor.BLUE + name + "が半に参加しました！");
+                            Bukkit.getServer().broadcastMessage(ChatColor.YELLOW  + name + ChatColor.BLUE + "が半に参加しました！");
                             allmoney += betmoney;
                             han_member.add(name);
                             return true;
@@ -163,8 +163,8 @@ public final class Chohan extends JavaPlugin {
                     }
                 }
                 if (time > 0){
-                    Bukkit.getServer().broadcastMessage(name + "が" + betmoney + "円丁半を募集しています！");
-                    Bukkit.getServer().broadcastMessage("残り募集時間"+ time + "秒です");
+                    Bukkit.getServer().broadcastMessage(ChatColor.YELLOW + name +ChatColor.WHITE +  "が"+ ChatColor.YELLOW + betmoney + ChatColor.WHITE + "円丁半を募集しています！");
+                    Bukkit.getServer().broadcastMessage("残り募集時間"+ ChatColor.YELLOW + time + ChatColor.WHITE + "秒です");
                 }
             }
         }.runTaskTimer(this,0,20*20L);
@@ -177,14 +177,22 @@ public final class Chohan extends JavaPlugin {
             Bukkit.getServer().broadcastMessage(dice + "が出ました！");
             if (dice % 2 == 0) {
                 Bukkit.getServer().broadcastMessage("丁の勝ち！");
-                for (String s : cho_member) Bukkit.getServer().broadcastMessage(s + "の勝ち！");
-                end();
+                int member = cho_member.size();
+                int getmoney = (allmoney / member);
+                for(String s : cho_member)
+                    Bukkit.getServer().broadcastMessage(ChatColor.YELLOW + s + ChatColor.WHITE + "は" + ChatColor.YELLOW + getmoney + ChatColor.WHITE+"円獲得しました！！");
                 // 丁のメンバーにお金を増やす
+                end();
+
             } else {
                 Bukkit.getServer().broadcastMessage("半の勝ち！");
-                for (String s : han_member) Bukkit.getServer().broadcastMessage(s + "の勝ち！");
+                int member = han_member.size();
+                int getmoney = (allmoney / member);
+                for(String s : han_member)
+                    Bukkit.getServer().broadcastMessage(ChatColor.YELLOW + s + ChatColor.WHITE + "は" + ChatColor.YELLOW + getmoney + ChatColor.WHITE+"円獲得しました！！");
+                //半のメンバーにお金を増やす
                 end();
-                    //半のメンバーにお金を増やす
+
             }
         }, 2 * 20);
     }
