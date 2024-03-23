@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class Chohan extends JavaPlugin {
+    Database database = new Database();
     boolean game;
     int betmoney;
     int allmoney;
@@ -63,26 +64,24 @@ public final class Chohan extends JavaPlugin {
                     }
 
                     if (game){
-                        /* お金の判定
-                        if(所持金 < betmoney){
-                           Sender.sendMessage("所持金が足りないので、参加できません！")
-                           retern false;
-                         }
-                         */
-                        if(cho_member.contains(name)){
-                            sender.sendMessage(ChatColor.RED + "あなたはすでに丁に参加しています！");
-                            return false;
-                        } else if(han_member.contains(name)) {
-                            Bukkit.getServer().broadcastMessage(ChatColor.YELLOW + name + ChatColor.RED+ "が丁に移動しました！");
-                            han_member.remove(name);
-                            cho_member.add(name);
-                        } else {
-                            Bukkit.getServer().broadcastMessage(ChatColor.YELLOW + name + ChatColor.RED+ "が丁に参加しました！");
-                            allmoney += betmoney;
-                            cho_member.add(name);
-                            return true;
-                        }
-
+                       if (database.CheckMoney(player_sender) < betmoney){
+                           player_sender.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "所持金が不足しています");
+                       } else {
+                           if (cho_member.contains(name)) {
+                               sender.sendMessage(ChatColor.RED + "あなたはすでに丁に参加しています！");
+                               return false;
+                           } else if (han_member.contains(name)) {
+                               Bukkit.getServer().broadcastMessage(ChatColor.YELLOW + name + ChatColor.RED + "が丁に移動しました！");
+                               han_member.remove(name);
+                               cho_member.add(name);
+                           } else {
+                               Bukkit.getServer().broadcastMessage(ChatColor.YELLOW + name + ChatColor.RED + "が丁に参加しました！");
+                               allmoney += betmoney;
+                               cho_member.add(name);
+                               database.AddMoney(player_sender, -betmoney);
+                               return true;
+                           }
+                       }
                     }
                 }
                 if (args[0].equalsIgnoreCase("h")){
@@ -93,27 +92,24 @@ public final class Chohan extends JavaPlugin {
                     }
 
                     if (game){
-                        /* お金の判定
-                        if(所持金 < betmoney){
-                           Sender.sendMessage("所持金が足りないので、参加できません！)
-                           retern false;
-                         }
-                         */
-                        //仮のプログラム
-                        if(han_member.contains(name)){
-                            sender.sendMessage(ChatColor.BLUE + "あなたはすでに半に参加しています！");
-                            return false;
-                        } else if(cho_member.contains(name)) {
-                            Bukkit.getServer().broadcastMessage(ChatColor.YELLOW + name +ChatColor.BLUE + "が半に移動しました！");
-                            cho_member.remove(name);
-                            han_member.add(name);
+                        if(database.CheckMoney(player_sender) < betmoney){
+                            player_sender.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "所持金が不足しています");
                         } else {
-                            Bukkit.getServer().broadcastMessage(ChatColor.YELLOW  + name + ChatColor.BLUE + "が半に参加しました！");
-                            allmoney += betmoney;
-                            han_member.add(name);
-                            return true;
+                            if (han_member.contains(name)) {
+                                sender.sendMessage(ChatColor.BLUE + "あなたはすでに半に参加しています！");
+                                return false;
+                            } else if (cho_member.contains(name)) {
+                                Bukkit.getServer().broadcastMessage(ChatColor.YELLOW + name + ChatColor.BLUE + "が半に移動しました！");
+                                cho_member.remove(name);
+                                han_member.add(name);
+                            } else {
+                                Bukkit.getServer().broadcastMessage(ChatColor.YELLOW + name + ChatColor.BLUE + "が半に参加しました！");
+                                allmoney += betmoney;
+                                han_member.add(name);
+                                database.AddMoney(player_sender, -betmoney);
+                                return true;
+                            }
                         }
-
                     }
                 }
             }
@@ -149,12 +145,12 @@ public final class Chohan extends JavaPlugin {
                 time -= 20;
                 if (time <= 0) {
                     if (!(!cho_member.isEmpty() && !han_member.isEmpty())) {
-                        Bukkit.getServer().broadcastMessage(ChatColor.RED + name + "の丁半の募集は人数不足のため終了しました");
+                        Bukkit.getServer().broadcastMessage(ChatColor.RED + "" + ChatColor.BOLD + name + "の丁半の募集は人数不足のため終了しました");
                         end();
                         this.cancel();
                     }
                     else if (cho_member.size() + han_member.size() == 3){
-                        Bukkit.getServer().broadcastMessage(ChatColor.RED + name + "の丁半は賭けが成立しないため終了しました");
+                        Bukkit.getServer().broadcastMessage(ChatColor.RED + "" + ChatColor.BOLD + name + "の丁半は賭けが成立しないため終了しました");
                         end();
                         this.cancel();
                     } else {
@@ -182,6 +178,7 @@ public final class Chohan extends JavaPlugin {
                 for (String s : cho_member) {
                     Bukkit.getServer().broadcastMessage(ChatColor.YELLOW + s + ChatColor.WHITE + "は" + ChatColor.YELLOW + getmoney + ChatColor.WHITE + "円獲得しました！！");
                 }
+                database.AddMoney((Player) cho_member, getmoney);
                 end();
 
             } else {
@@ -191,6 +188,7 @@ public final class Chohan extends JavaPlugin {
                 for(String s : han_member) {
                     Bukkit.getServer().broadcastMessage(ChatColor.YELLOW + s + ChatColor.WHITE + "は" + ChatColor.YELLOW + getmoney + ChatColor.WHITE + "円獲得しました！！");
                 }
+                database.AddMoney((Player) han_member, getmoney);
                 end();
 
             }
